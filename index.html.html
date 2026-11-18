@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cuaderno de Entrenamiento · Mantrailing (Scott)</title>
+<style>
+  :root {
+    --primary: #4A2580;
+    --primary-dark: #34185E;
+    --primary-light: #F2ECF9;
+    --bg: #F9F8FC;
+    --text: #1F2933;
+    --muted: #52606D;
+    --border: #D8D2E3;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  .mp-container {
+    width: 100%;
+    max-width: 700px;
+  }
+  .mp-panel {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(74, 37, 128, 0.05);
+    margin-bottom: 24px;
+  }
+  h2 {
+    color: var(--primary);
+    margin-top: 0;
+    font-size: 1.4rem;
+  }
+  .mp-ayuda {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .mp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .mp-campo {
+    display: flex;
+    flex-direction: column;
+  }
+  .mp-campo.mp-ancho {
+    grid-column: span 2;
+  }
+  label {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+  }
+  input, select, textarea {
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    background: #FAF8FD;
+    color: var(--text);
+    font-family: inherit;
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: #fff;
+  }
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+  .mp-sep {
+    grid-column: span 2;
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: var(--primary);
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--primary-light);
+    padding-bottom: 4px;
+    margin-top: 12px;
+    letter-spacing: 0.5px;
+  }
+  .mp-acciones {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .mp-btn {
+    padding: 11px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border: none;
+  }
+  .mp-btn-p {
+    background: var(--primary);
+    color: white;
+  }
+  .mp-btn-p:hover {
+    background: var(--primary-dark);
+  }
+  .mp-btn-min {
+    background: var(--primary-light);
+    color: var(--primary);
+  }
+  .mp-aviso {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #137333;
+  }
+  .mp-historial-box h3 {
+    color: var(--primary);
+    font-size: 1.1rem;
+    margin-top: 0;
+  }
+  .mp-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .mp-item {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .mp-item-info b {
+    color: var(--primary);
+  }
+  .mp-del {
+    background: #FEE7E6;
+    color: #C5221F;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<div class="mp-container">
+  <div class="mp-panel">
+    <h2 id="mp-tit-form">Nueva sesión de mantrailing</h2>
+    <p class="mp-ayuda">Rellena lo que tengas. Solo la fecha y el nombre del perro son obligatorios.</p>
+
+    <div class="mp-grid">
+      <div class="mp-campo"><label for="mp-fecha">Fecha</label><input type="date" id="mp-fecha"></div>
+      <div class="mp-campo"><label for="mp-perro">Perro</label><input type="text" id="mp-perro" placeholder="Ej: Scott" value="Scott"></div>
+      <div class="mp-campo"><label for="mp-duracion">Duración (min)</label><input type="number" id="mp-duracion" min="0" placeholder="45"></div>
+      <div class="mp-campo"><label for="mp-lugar">Lugar</label><input type="text" id="mp-lugar" placeholder="Parque, nave, monte…"></div>
+      
+      <div class="mp-campo">
+        <label for="mp-estado">Estado del perro</label>
+        <select id="mp-estado">
+          <option value="">—</option><option>Excelente</option><option>Bien</option><option>Regular</option><option>Bajo</option>
+        </select>
+      </div>
+      <div class="mp-campo"><label for="mp-meteo">Meteo / temperatura</label><input type="text" id="mp-meteo" placeholder="Soleado, 24°"></div>
+
+      <div class="mp-sep">Datos de mantrailing</div>
+      <div class="mp-campo"><label for="mp-c-edad_rastro">Edad del rastro</label><input type="text" id="mp-c-edad_rastro" placeholder="30 min, 2 h…"></div>
+      <div class="mp-campo"><label for="mp-c-distancia">Distancia aprox. (m)</label><input type="number" id="mp-c-distancia" placeholder="300" min="0"></div>
+      
+      <div class="mp-campo">
+        <label for="mp-c-superficie">Superficie</label>
+        <select id="mp-c-superficie">
+          <option value="">—</option><option>Tierra / Bosque</option><option>Hierba</option><option>Asfalto</option><option>Urbano</option><option>Mixta</option>
+        </select>
+      </div>
+      <div class="mp-campo">
+        <label for="mp-c-viento">Viento</label>
+        <select id="mp-c-viento">
+          <option value="">—</option><option>Nulo</option><option>Suave</option><option>Moderado</option><option>Fuerte</option>
+        </select>
+      </div>
+
+      <div class="mp-campo"><label for="mp-c-cruces">Nº de cruces</label><input type="number" id="mp-c-cruces" placeholder="2" min="0"></div>
+      <div class="mp-campo">
+        <label for="mp-c-negativo">¿Hubo negativo?</label>
+        <select id="mp-c-negativo"><option value="">—</option><option>No</option><option>Sí</option></select>
+      </div>
+
+      <div class="mp-campo"><label for="mp-c-figurante">Quién puso el rastro</label><input type="text" id="mp-c-figurante" placeholder="Nombre"></div>
+      <div class="mp-campo">
+        <label for="mp-c-resultado">Resultado</label>
+        <select id="mp-c-resultado">
+          <option value="">—</option><option>Localizado</option><option>Localizado con ayuda</option><option>Parcial</option><option>No localizado</option>
+        </select>
+      </div>
+
+      <div class="mp-campo mp-ancho"><label for="mp-c-distractores">Distractores</label><input type="text" id="mp-c-distractores" placeholder="Perros, gente, comida…"></div>
+
+      <div class="mp-sep">Valoración y notas</div>
+      <div class="mp-campo">
+        <label for="mp-valoracion">¿Cómo fue? (1–5)</label>
+        <select id="mp-valoracion">
+          <option value="">—</option><option value="5">5 · Muy bien</option><option value="4">4 · Bien</option><option value="3">3 · Normal</option><option value="2">2 · Flojo</option><option value="1">1 · Mal día</option>
+        </select>
+      </div>
+      <div class="mp-campo mp-ancho"><label for="mp-notas">Notas</label><textarea id="mp-notas" placeholder="Qué salió bien, qué cambiarías, qué probar la próxima vez…"></textarea></div>
+    </div>
+
+    <div class="mp-acciones">
+      <button type="button" class="mp-btn mp-btn-p" id="mp-guardar">Añadir sesión</button>
+      <button type="button" class="mp-btn mp-btn-min" id="mp-limpiar">Vaciar formulario</button>
+      <span class="mp-aviso" id="mp-aviso"></span>
+    </div>
+  </div>
+
+  <div class="mp-panel mp-historial-box">
+    <h3>Entradas guardadas</h3>
+    <ul id="mp-lista" class="mp-lista"><p style="color:var(--muted); font-size:0.9rem;">No hay sesiones registradas todavía.</p></ul>
+  </div>
+</div>
+
+<script>
+  // Poner fecha de hoy por defecto
+  document.getElementById('mp-fecha').valueAsDate = new Date();
+
+  function cargarHistorial() {
+    let sesiones = JSON.parse(localStorage.getItem('sesiones_scott') || '[]');
+    let lista = document.getElementById('mp-lista');
+    if (sesiones.length === 0) {
+      lista.innerHTML = '<p style="color:var(--muted); font-size:0.9rem;">No hay sesiones registradas todavía.</p>';
+      return;
+    }
+    lista.innerHTML = '';
+    sesiones.forEach((s, index) => {
+      let li = document.createElement('li');
+      li.className = 'mp-item';
+      li.innerHTML = `
+        <div class="mp-item-info">
+          <b>${s.fecha}</b> - ${s.perro} (${s.lugar || 'Sin lugar'})<br>
+          <span style="font-size:0.85rem; color:var(--muted);">⏱️ ${s.duracion || 0} min | 📏 ${s.distancia || 0}m | ⭐️ Nota: ${s.valoracion || '—'}</span>
+        </div>
+        <button class="mp-del" onclick="eliminarSesion(${index})">Eliminar</button>
+      `;
+      lista.appendChild(li);
+    });
+  }
+
+  document.getElementById('mp-guardar').addEventListener('click', function() {
+    let fecha = document.getElementById('mp-fecha').value;
+    let perro = document.getElementById('mp-perro').value;
+    
+    if (!fecha || !perro) {
+      document.getElementById('mp-aviso').style.color = '#C5221F';
+      document.getElementById('mp-aviso').innerText = '¡Faltan la fecha y el perro!';
+      return;
+    }
+
+    let nuevaSesion = {
+      fecha: fecha,
+      perro: perro,
+      duracion: document.getElementById('mp-duracion').value,
+      lugar: document.getElementById('mp-lugar').value,
+      distancia: document.getElementById('mp-c-distancia').value,
+      valoracion: document.getElementById('mp-valoracion').value,
+      notas: document.getElementById('mp-notas').value
+    };
+
+    let sesiones = JSON.parse(localStorage.getItem('sesiones_scott') || '[]');
+    sesiones.unshift(nuevaSesion);
+    localStorage.setItem('sesiones_scott', JSON.stringify(sesiones));
+
+    document.getElementById('mp-aviso').style.color = '#137333';
+    document.getElementById('mp-aviso').innerText = '¡Sesión guardada con éxito!';
+    setTimeout(() => { document.getElementById('mp-aviso').innerText = ''; }, 3000);
+
+    cargarHistorial();
+  });
+
+  document.getElementById('mp-limpiar').addEventListener('click', function() {
+    document.getElementById('mp-duracion').value = '';
+    document.getElementById('mp-lugar').value = '';
+    document.getElementById('mp-meteo').value = '';
+    document.getElementById('mp-c-edad_rastro').value = '';
+    document.getElementById('mp-c-distancia').value = '';
+    document.getElementById('mp-c-cruces').value = '';
+    document.getElementById('mp-c-figurante').value = '';
+    document.getElementById('mp-c-distractores').value = '';
+    document.getElementById('mp-notas').value = '';
+    document.getElementById('mp-estado').selectedIndex = 0;
+    document.getElementById('mp-c-superficie').selectedIndex = 0;
+    document.getElementById('mp-c-viento').selectedIndex = 0;
+    document.getElementById('mp-c-negativo').selectedIndex = 0;
+    document.getElementById('mp-c-resultado').selectedIndex = 0;
+    document.getElementById('mp-valoracion').selectedIndex = 0;
+  });
+
+  function eliminarSesion(index) {
+    let sesiones = JSON.parse(localStorage.getItem('sesiones_scott') || '[]');
+    sesiones.splice(index, 1);
+    localStorage.setItem('sesiones_scott', JSON.stringify(sesiones));
+    cargarHistorial();
+  }
+
+  cargarHistorial();
+</script>
+</body>
+</html>
